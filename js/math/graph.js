@@ -67,4 +67,14 @@ class Graph {
       point.draw(ctx);
     }
   }
+
+  static load(info) {
+    const points = info.points.map(p => new Point(p.x, p.y));
+    const segments = info.segments.map(s => new Segment(
+      points.find(p => p.equals(s.p1)),
+      points.find(p => p.equals(s.p2))
+    ));
+
+    return new Graph(points, segments);
+  }
 }

@@ -1,7 +1,11 @@
-class Point {
+class Point extends Object{
   constructor(x, y) {
+    super();
     this.x = x;
     this.y = y;
+
+    this.hovered = false;
+    this.selected = false;
   }
 
   equals(point) {
@@ -16,15 +20,15 @@ class Point {
     ctx.arc(this.x, this.y, rad, 0, Math.PI * 2);
     ctx.fill();
 
-    if (outline) {
+    if (outline || this.selected) {
       ctx.beginPath();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1;
       ctx.strokeStyle = 'yellow';
-      ctx.arc(this.x, this.y, rad * 0.6, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, rad * 0.7, 0, Math.PI * 2);
       ctx.stroke();
     }
 
-    if (fill) {
+    if (fill || this.hovered) {
       ctx.beginPath();
       ctx.fillStyle = 'yellow';
       ctx.arc(this.x, this.y, rad * 0.4, 0, Math.PI * 2);
