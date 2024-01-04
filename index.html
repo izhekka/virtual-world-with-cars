@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<html>
+<html lang="en">
   <head>
     <title>World Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css"/>
   </head>
-  <body>
-    <h1>World Editor</h1>
+  <body class="bg-gray-900 p-5">
+    <h1 class="w-full font-mono text-2xl mb-5">World Editor</h1>
     <canvas id="myCanvas"></canvas>
-    <div id="controls">
+    <div id="controls" class="text-2xl mt-5">
       <button onclick="dispose()">🗑</button>
       <button onclick="save()">💾</button>
     </div>
 
+    <script src="js/world.js"></script>
     <script src="js/graphEditor.js"></script>
     <script src="js/viewport.js"></script>
     <script src="js/math/utils.js"></script>
     <script src="js/math/graph.js"></script>
     <script src="js/primitives/point.js"></script>
     <script src="js/primitives/segment.js"></script>
+    <script src="js/primitives/polygon.js"></script>
+    <script src="js/primitives/envelope.js"></script>
     <script>
-      myCanvas.width = 600;
-      myCanvas.height = 600;
+      myCanvas.width = 1000;
+      myCanvas.height = 800;
 
       const ctx = myCanvas.getContext('2d');
 
@@ -30,6 +34,7 @@
       const graph = storedGraph
               ? Graph.load(storedGraph)
               : new Graph();
+      const world = new World(graph);
 
       const viewport = new Viewport(myCanvas);
       const graphEditor = new GraphEditor(viewport, graph);
@@ -38,6 +43,9 @@
 
       function animate() {
         viewport.reset();
+        world.generate();
+        world.draw(ctx);
+        ctx.globalAlpha = 0.3;
         graphEditor.display();
         window.requestAnimationFrame(animate);
       }
