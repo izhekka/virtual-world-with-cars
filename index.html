@@ -10,13 +10,15 @@
     <h1 class="w-full font-mono text-2xl mb-5">World Editor</h1>
     <canvas id="myCanvas"></canvas>
     <div id="controls" class="text-2xl mt-5">
-      <button onclick="dispose()">🗑</button>
-      <button onclick="save()">💾</button>
+      <button class="rounded-md bg-blue-100 w-16 h-10" onclick="dispose()">🗑</button>
+      <button class="rounded-md bg-blue-100 w-16 h-10" onclick="save()">💾</button>
     </div>
 
     <script src="js/world.js"></script>
     <script src="js/graphEditor.js"></script>
     <script src="js/viewport.js"></script>
+    <script src="js/items/tree.js"></script>
+    <script src="js/items/building.js"></script>
     <script src="js/math/utils.js"></script>
     <script src="js/math/graph.js"></script>
     <script src="js/primitives/point.js"></script>
@@ -49,7 +51,8 @@
           world.generate();
           oldGraphHash = graph.hash();
         }
-        world.draw(ctx);
+        const viewPoint = scale(viewport.getOffset(), -1);
+        world.draw(ctx, viewPoint);
         ctx.globalAlpha = 0.3;
         graphEditor.display();
         window.requestAnimationFrame(animate);

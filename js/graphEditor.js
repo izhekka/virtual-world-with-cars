@@ -37,6 +37,8 @@ class GraphEditor {
         return;
       }
 
+      // TODO: separate canvas interaction flows to "drag&drop" and "draw"
+      return;
       this.graph.addPoint(this.mouse);
       this.#selectPoint(this.mouse);
       this.hovered = this.mouse;
